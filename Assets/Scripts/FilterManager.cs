@@ -11,17 +11,14 @@ public class FilterManager : MonoBehaviour
 
     void Start()
     {
-        // Ensure everything is off at the very beginning
         facePaintFilter.SetActive(false);
         helmetFilter.SetActive(false);
         startPanel.SetActive(true);
     }
 
-    // LINK THIS TO YOUR "START EXPERIENCE" BUTTON
     public void StartExperience()
     {
         startPanel.SetActive(false);
-        // This is the fix: Force the Face Paint to turn on immediately
         ShowFacePaint(); 
     }
 
