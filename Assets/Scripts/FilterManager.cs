@@ -3,31 +3,50 @@ using TMPro;
 
 public class FilterManager : MonoBehaviour
 {
-    [Header("Filter GameObjects")]
-    // Drag 'Zappar Full Head Model' here
+    [SerializeField] private GameObject startPanel;
     [SerializeField] private GameObject facePaintFilter; 
-    // Drag your 'helmet' object here
     [SerializeField] private GameObject helmetFilter;    
-
-    [Header("UI Elements")]
     [SerializeField] private TextMeshProUGUI instructionText;
+    private bool showHelmet = false;
 
     void Start()
     {
-        ShowFacePaint();
+        // Ensure everything is off at the very beginning
+        facePaintFilter.SetActive(false);
+        helmetFilter.SetActive(false);
+        startPanel.SetActive(true);
+    }
+
+    // LINK THIS TO YOUR "START EXPERIENCE" BUTTON
+    public void StartExperience()
+    {
+        startPanel.SetActive(false);
+        // This is the fix: Force the Face Paint to turn on immediately
+        ShowFacePaint(); 
     }
 
     public void ShowFacePaint()
     {
+        showHelmet = false;
         facePaintFilter.SetActive(true);
         helmetFilter.SetActive(false);
-        if(instructionText != null) instructionText.text = "Face Paint Active";
+        instructionText.text = "Face Paint Active";
     }
 
     public void ShowHelmet()
     {
+        showHelmet = true;
         facePaintFilter.SetActive(false);
         helmetFilter.SetActive(true);
-        if(instructionText != null) instructionText.text = "Helmet Filter Active";
+        instructionText.text = "Helmet Active";
+    }
+
+    public void HideHelmetOnFaceUnseen() {
+        helmetFilter.SetActive(false);
+    }
+
+    public void ShowHelmetOnFaceSeen() {
+        if(!showHelmet) return;
+        ShowHelmet();
     }
 }
