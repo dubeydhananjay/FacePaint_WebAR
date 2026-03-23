@@ -30,6 +30,7 @@ ExportedObj/
 *.db
 *.VC.db
 *.log
+webar/
 
 # --- macOS ---
 .DS_Store

@@ -1,5 +1,8 @@
+using System.Net.Mime;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
+using System.Collections;
 
 public class FilterManager : MonoBehaviour
 {
@@ -8,16 +11,24 @@ public class FilterManager : MonoBehaviour
     [SerializeField] private GameObject helmetFilter;    
     [SerializeField] private TextMeshProUGUI instructionText;
     private bool showHelmet = false;
+    private bool appStart = false;
 
-    void Start()
+   void Start()
     {
+        StartCoroutine(DelayedStart());
+    }
+
+    IEnumerator DelayedStart()
+    {
+        yield return new WaitForSeconds(0.5f);
+        startPanel.SetActive(true);
         facePaintFilter.SetActive(false);
         helmetFilter.SetActive(false);
-        startPanel.SetActive(true);
     }
 
     public void StartExperience()
     {
+        appStart = true;
         startPanel.SetActive(false);
         ShowFacePaint(); 
     }
@@ -42,8 +53,11 @@ public class FilterManager : MonoBehaviour
         helmetFilter.SetActive(false);
     }
 
-    public void ShowHelmetOnFaceSeen() {
-        if(!showHelmet) return;
-        ShowHelmet();
+    public void ShowFilterOnFaceSeen() {
+        if(!appStart) return;
+        if(showHelmet)
+            ShowHelmet();
+        else
+            ShowFacePaint();
     }
 }
